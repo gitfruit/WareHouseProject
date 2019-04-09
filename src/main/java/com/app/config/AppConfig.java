@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.app.model.OrderMethod;
 import com.app.model.ShipmentType;
 import com.app.model.Uom;
 
@@ -50,7 +51,7 @@ import com.app.model.Uom;
 	LocalSessionFactoryBean sf=new LocalSessionFactoryBean();
 	sf.setDataSource(dsObj());
 	sf.setHibernateProperties(props());
-	sf.setAnnotatedClasses(ShipmentType.class,Uom.class); //Model class names
+	sf.setAnnotatedClasses(ShipmentType.class,Uom.class,OrderMethod.class); //Model class names
 	return sf;
 	}
 	private Properties props() {

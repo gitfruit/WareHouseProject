@@ -1,5 +1,6 @@
 package com.app.controller;
 
+
 import java.util.Collections;
 import java.util.List;
 
@@ -97,7 +98,7 @@ public class ShipmentTypeController {
 		 return m;
 	 }
 	 //8.Export data to Pdf file
-	 @RequestMapping("/pdf")
+	 @RequestMapping("/pdf ")
 	 public ModelAndView doPdfExport(@RequestParam (value="id",required=false,defaultValue="0")Integer id) {
 		 ModelAndView m=new ModelAndView();
 		 //set View Object
