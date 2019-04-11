@@ -15,6 +15,7 @@ import org.springframework.web.servlet.View;
 
 import com.app.model.OrderMethod;
 import com.app.service.IOrderMethodService;
+import com.app.view.OrderMethodExcelView;
 
 @Controller
 @RequestMapping("/ordermethod")
@@ -74,7 +75,7 @@ public class OrderMethodController {
 	@RequestMapping("/excel")
 	public ModelAndView doExcel(@RequestParam (value="id",required=false,defaultValue="0")Integer id) {
         ModelAndView m=new ModelAndView();
-		m.setView((View) new OrderMethod());
+		m.setView(new OrderMethodExcelView());
 		if(id==0) {
 			m.addObject("list",service.getAllOrderMethods());
 		}

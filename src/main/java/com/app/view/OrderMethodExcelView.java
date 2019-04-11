@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.document.AbstractXlsxView;
 
 import com.app.model.OrderMethod;
 
-public class OrderMethodView extends AbstractXlsxView{
+public class OrderMethodExcelView extends AbstractXlsxView{
 
 	@Override
 	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
@@ -41,7 +41,7 @@ public class OrderMethodView extends AbstractXlsxView{
             	r.createCell(0).setCellValue(or.getOrderId());
             	r.createCell(1).setCellValue(or.getOrderMode());
             	r.createCell(2).setCellValue(or.getExeType());
-            	r.createCell(3).setCellValue(or.getOrderAccepts());
+            	r.createCell(3).setCellValue(or.getOrderAccepts().toString());
             	r.createCell(4).setCellValue(or.getNote());
             		
             	
