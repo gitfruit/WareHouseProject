@@ -16,6 +16,7 @@ import org.springframework.web.servlet.View;
 import com.app.model.OrderMethod;
 import com.app.service.IOrderMethodService;
 import com.app.view.OrderMethodExcelView;
+import com.app.view.OrderMethodPdfView;
 
 @Controller
 @RequestMapping("/ordermethod")
@@ -23,7 +24,7 @@ public class OrderMethodController {
 
 	@Autowired
 	private IOrderMethodService service;
-	@RequestMapping("/show")
+	@RequestMapping("/register")
 	public String showRegister(ModelMap map) {
 		//form Backing Object
 		map.addAttribute("orderMethod",new OrderMethod());
@@ -83,6 +84,20 @@ public class OrderMethodController {
 			OrderMethod om=service.getOrderMethod(id);
 			m.addObject("list",Collections.singletonList(om));
 			
+		}
+		return m;
+	}
+	
+	@RequestMapping("/pdf")
+	public ModelAndView doPdf(@RequestParam (value="id",required=false,defaultValue="0")Integer id) {
+		ModelAndView m=new ModelAndView();
+		m.setView(new OrderMethodPdfView());
+		if(id==0) {
+			m.addObject("list",service.getAllOrderMethods());
+		}
+		else {
+			OrderMethod om=service.getOrderMethod(id);
+			m.addObject("list",Collections.singletonList(om));
 		}
 		return m;
 	}

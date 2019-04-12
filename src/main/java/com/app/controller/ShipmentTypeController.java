@@ -29,7 +29,7 @@ public class ShipmentTypeController {
 	@RequestMapping("/register")
 	public String showRegisterPage(ModelMap map)
 	{
-		//form Backing object
+		//form Backing objects
 		map.addAttribute("shipmentType",new ShipmentType());
 		return "ShipmentTypeRegister";
 	}
