@@ -7,6 +7,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.app.dao.IUomDao;
+import com.app.model.ShipmentType;
 import com.app.model.Uom;
 
 @Repository
@@ -39,6 +40,15 @@ public class UomDaoImpl implements IUomDao{
 	public List<Uom> getAllUoms() {
 		return ht.loadAll(Uom.class);
 	}
+
+	@Override
+	public List<Object[]> getUomCountByType() {
+		String hql=" select uomType,count(uomType) "+" from "
+		+ Uom.class.getName() +" group by uomType ";
+		List<Object[]> list=(List<Object[]>) ht.find(hql);
+		return list;
+	}
+	
 
 	
 }

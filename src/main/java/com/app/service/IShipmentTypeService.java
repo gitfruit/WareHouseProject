@@ -12,4 +12,6 @@ public interface IShipmentTypeService{
 	public void deleteShipmentType(Integer id);
 	public ShipmentType getShipmentTypeId(Integer id);
 	public List<ShipmentType> getAllShipmentTypes();
+	public List<Object[]> getShipmentCountByMode();
+
 }

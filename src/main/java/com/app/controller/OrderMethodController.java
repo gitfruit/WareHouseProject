@@ -3,6 +3,8 @@ package com.app.controller;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import com.app.model.OrderMethod;
 import com.app.service.IOrderMethodService;
+import com.app.util.OrderMethodUtil;
 import com.app.view.OrderMethodExcelView;
 import com.app.view.OrderMethodPdfView;
 
@@ -22,6 +24,11 @@ import com.app.view.OrderMethodPdfView;
 @RequestMapping("/ordermethod")
 public class OrderMethodController {
 
+	@Autowired
+	private OrderMethodUtil util;
+	@Autowired
+	private ServletContext context;
+	
 	@Autowired
 	private IOrderMethodService service;
 	@RequestMapping("/register")
@@ -100,5 +107,22 @@ public class OrderMethodController {
 			m.addObject("list",Collections.singletonList(om));
 		}
 		return m;
+	}
+	@RequestMapping("/charts")
+	public String generatecharts() {
+		String path=context.getRealPath("/");
+		List<Object[]> list=service.getOrderMethodCountbyMode();
+		System.out.println(path);
+		util.generateBar(path, list);
+		util.generatPie(path, list);
+		return "OrderMethodReports";
+	}
+	
+	//To view One row Data
+	@RequestMapping("/viewone")
+	public String getOneRow(@RequestParam Integer id,ModelMap map) {
+		OrderMethod orm=service.getOrderMethod(id);
+		map.addAttribute("orm",orm);
+		return "OrderMethodView";
 	}
 }

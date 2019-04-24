@@ -39,4 +39,11 @@ public class OrderMethodDaoImpl implements IOrderMethodDao{
 		return ht.loadAll(OrderMethod.class);
 	}
 
+	public List<Object[]> getOrderMethodCountbyMode() {
+		String hql=" select orderMode,count(orderMode) "+" from "
+	                 + OrderMethod.class.getName() +" group by  orderMode ";
+	                List<Object[]> list=(List<Object[]>)ht.find(hql); 
+		return list;
+	}
+
 }

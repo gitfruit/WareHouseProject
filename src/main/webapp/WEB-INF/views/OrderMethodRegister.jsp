@@ -35,7 +35,8 @@ Description     :  <form:textarea path="note"/>
                    
 </pre>
 </form:form>
-${message}
+${message} <br>
+<a href="charts">VIEW CHARTS</a> <br>
 <a href="all">View All</a>
 </body>
 </html>

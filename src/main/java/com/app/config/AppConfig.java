@@ -13,12 +13,17 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.app.model.Document;
 import com.app.model.OrderMethod;
 import com.app.model.ShipmentType;
 import com.app.model.Uom;
+import com.app.model.WHUserType;
 
 
 
@@ -28,10 +33,17 @@ import com.app.model.Uom;
 	@Configuration
 	@PropertySource("classpath:app.properties")
 	@ComponentScan(basePackages="com.app")
-	public class AppConfig {
+	public class AppConfig    implements WebMvcConfigurer{
 	@Autowired
 	private Environment env;
 	//1. DataSource
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	  registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+
+	
 	@Bean
 	public BasicDataSource dsObj() {
 	BasicDataSource ds=new BasicDataSource();
@@ -51,7 +63,7 @@ import com.app.model.Uom;
 	LocalSessionFactoryBean sf=new LocalSessionFactoryBean();
 	sf.setDataSource(dsObj());
 	sf.setHibernateProperties(props());
-	sf.setAnnotatedClasses(ShipmentType.class,Uom.class,OrderMethod.class); //Model class names
+	sf.setAnnotatedClasses(ShipmentType.class,Uom.class,OrderMethod.class,WHUserType.class,Document.class); //Model class names
 	return sf;
 	}
 	private Properties props() {
@@ -86,6 +98,15 @@ import com.app.model.Uom;
 	v.setSuffix(env.getProperty("mvc.suffix"));
 	return v;
 	}
+	
+	
+	//6.CommonsMultipartResolver
+	 @Bean
+	public CommonsMultipartResolver  multipartResolver() {
+		
+		return new CommonsMultipartResolver();
+	}
+	
 	}
 
 

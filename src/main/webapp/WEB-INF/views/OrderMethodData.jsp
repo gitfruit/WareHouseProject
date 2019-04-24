@@ -9,8 +9,8 @@
 </head>
 <body>
 	<h2>Welcome to OrderMethod Data Page</h2>
-    <a href="excel">EXCEL</a> <br>
-    <a href="pdf">PDF</a>
+    <a href="excel"><img src="../resources/images/BulkExcel.png" width="80" height="80" /></a> <br>
+    <a href="pdf"><img src="../resources/images/BulkPdf.png" width="80" height="80" /></a>
 	<c:if test="${empty list}">              
 		<h3>NO Data found</h3>
 	</c:if>
@@ -19,26 +19,19 @@
 		<table border=1>
 			<tr>
 				<th>Id</th>
-				<th>Mode</th>
-				<th>Code</th>
-				<th>ExeType</th>
-				<th>Note</th>
-				<th >OrderAccepts</th>
-				<th colspan="4">Operations</th>
+				<th>MODE</th>
+				<th colspan="5">Operations</th>
 				<th>
 			</tr>
 			<c:forEach items="${list}" var="ob">
 				<tr>
 					<td><c:out value="${ob.orderId}" /></td>
 					<td><c:out value="${ob.orderMode}" /></td>
-					<td><c:out value="${ob.orderCode}" /></td>
-					<td><c:out value="${ob.exeType}" /></td>
-					<td><c:out value="${ob.note}" /></td>
-					<td><c:out value="${ob.orderAccepts}" /></td>
-					<td><a href="delete?id=${ob.orderId}">DELETE</a></td>
-					<td><a href="edit?id=${ob.orderId}">EDIT</a></td>
-					<td><a href="pdf?id=${ob.orderId}">PDF</a></td>
-					<td><a href="excel?id=${ob.orderId}">EXCEL</a></td>
+					<td><a href="delete?id=${ob.orderId}"><img src="../resources/images/delete.png" width="40" height="40" /></a></td>
+					<td><a href="edit?id=${ob.orderId}"><img src="../resources/images/edit2.png" width="40" height="40" /></a></td>
+					<td><a href="pdf?id=${ob.orderId}"><img src="../resources/images/pdf2.png" width="40" height="40" /></a></td>
+					<td><a href="excel?id=${ob.orderId}"><img src="../resources/images/excel.png" width="40" height="40" /></a></td>
+					<td><a href="viewone?id=${ob.orderId}"><img src="../resources/images/view.png" width="40" height="40" /></a>
 					<td>
 				</tr>
 			</c:forEach>

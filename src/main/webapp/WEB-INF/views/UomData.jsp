@@ -12,8 +12,8 @@
 <body>
 
 	<h2>Welcome to Uom Data Type Page</h2>
-	<a href="excel">EXCEL EXPORT</a>
-	<a href="pdf">PDF EXPORT</a>
+	<a href="excel"><img src="../resources/images/BulkExcel.png" width="80" height="80" /></a>
+	<a href="pdf"><img src="../resources/images/BulkPdf.png" width="80" height="80" /></a>
 	<c:if test="${empty list}">
 		<h3>NO Data Found</h3>
 	</c:if>
@@ -24,25 +24,18 @@
 			<tr>
 				<td>UomType</td>
 				<td>UomCode</td>
-				<td>Enabled</td>
-				<td>MetaCode</td>
-				<td>AdjustSize</td>
-				<td>Note</td>
-				<td colspan="4">OPERATIONS</td>
+				<td colspan="5">OPERATIONS</td>
 			</tr>
 
 			<c:forEach items="${list}" var="ob">
 				<tr>
 					<td><c:out value="${ob.uomId}" /></td>
 					<td><c:out value="${ob.uomType}" /></td>
-					<td><c:out value="${ob.uomCode}" /></td>
-					<td><c:out value="${ob.enableUom}" /></td>
-					<td><c:out value="${ob.metaCode}" /></td>
-					<td><c:out value="${ob.note}" /></td>
-					<td><a href="delete?id=${ob.uomId}">DELETE</a></td>
-					<td><a href="edit?id=${ob.uomId}">EDIT</a></td>
-					<td><a href="excel?id=${ob.uomId}">EXCEL</a></td>
-					<td><a href="pdf?id=${ob.uomId}">PDF</a>
+					<td><a href="delete?id=${ob.uomId}"><img src="../resources/images/delete.png" width="40" height="40" /></a></td>
+					<td><a href="edit?id=${ob.uomId}"><img src="../resources/images/edit2.png" width="40" height="40" /></a></td>
+					<td><a href="excel?id=${ob.uomId}"><img src="../resources/images/excel.png" width="40" height="40" /></a></td>
+					<td><a href="pdf?id=${ob.uomId}"><img src="../resources/images/pdf2.png" width="40" height="40" /></a></td>
+					<td><a href="viewone?id=${ob.uomId}"><img src="../resources/images/view.png" width="40" height="40"/></a></td> 
 				</tr>
 			</c:forEach>
 		</table>

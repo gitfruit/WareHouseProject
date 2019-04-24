@@ -4,9 +4,12 @@ package com.app.controller;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.app.model.ShipmentType;
 import com.app.service.IShipmentTypeService;
+import com.app.util.ShipmentTypeUtil;
+import com.app.validator.ShipmentTypeValidator;
 import com.app.view.ShipmentTypeExcelView;
 import com.app.view.ShipmentTypePdfView;
 
@@ -23,7 +28,14 @@ import com.app.view.ShipmentTypePdfView;
 public class ShipmentTypeController {
 
 	@Autowired
-	public IShipmentTypeService service;	
+	public IShipmentTypeService service;
+	 @Autowired
+	 private ServletContext context;
+	 @Autowired
+	 private ShipmentTypeUtil util;
+	 @Autowired
+	 private ShipmentTypeValidator validator;
+
 
 	//1.To show register page(html form)
 	@RequestMapping("/register")
@@ -36,11 +48,18 @@ public class ShipmentTypeController {
 
 	//2.Read the form data on click submit
 	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public String saveShipmentType(@ModelAttribute ShipmentType shipmentType,ModelMap map)
+	public String saveShipmentType(@ModelAttribute ShipmentType shipmentType,Errors errors,ModelMap map)
 	{
+		validator.validate(shipmentType, errors);
+		if(!errors.hasErrors()) {
 		Integer id=service.saveShipmentType(shipmentType);
 		map.addAttribute("msg","Shipment '"+id+"' Saved Succesfully");
+		//Clear Form Backing Object
 		map.addAttribute("shipmentType",new ShipmentType());
+		}
+		else {
+			map.addAttribute("msg","Please Check Errors");
+		}
 		return "ShipmentTypeRegister";
 	}
 	
@@ -96,9 +115,9 @@ public class ShipmentTypeController {
 			 m.addObject("list",Collections.singletonList(service.getShipmentTypeId(id)));
 		 }
 		 return m;
-	 }
+		 }
 	 //8.Export data to Pdf file
-	 @RequestMapping("/pdf ")
+	 @RequestMapping("/pdf")
 	 public ModelAndView doPdfExport(@RequestParam (value="id",required=false,defaultValue="0")Integer id) {
 		 ModelAndView m=new ModelAndView();
 		 //set View Object
@@ -112,6 +131,27 @@ public class ShipmentTypeController {
 		 }
 		 return m;
 	 }
+	 
+	 //9.Converting data to charts
+	 @RequestMapping("/charts")
+	 public String showCharts() {
+	   String path=context.getRealPath("/");
+	   List<Object[]> list=service.getShipmentCountByMode();
+	   System.out.println(path);
+	   util.generatePie(path, list);
+	   util.generateBar(path,list);
+	   return "ShipmentTypeReports";
+	}
+
+    //10.To view One Row Data
+	 @RequestMapping("/viewone")
+	 public String getOneRow(@RequestParam Integer id,ModelMap map) {
+		 ShipmentType st=service.getShipmentTypeId(id);
+		 map.addAttribute("st",st);
+		 return "ShipmentTypeView";
+	 }
+
+
 	 
 }
 

@@ -10,4 +10,5 @@ public interface IUomService {
 	public void deleteUom(Integer id);
 	public Uom getUomById(Integer id);
 	public List<Uom> getAllUoms();
+	public List<Object[]> getUomCountByType();
 }

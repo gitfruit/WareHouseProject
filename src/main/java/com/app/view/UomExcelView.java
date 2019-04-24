@@ -21,7 +21,7 @@ public class UomExcelView extends AbstractXlsxView{
 			HttpServletResponse response) throws Exception {
 		  
 		//Change FileName
-		response.addHeader("Content-Dispositin", "attachent;filename=Uom.xlsx");
+		response.addHeader("Content-Disposition", "attachment;filename=Uom.xlsx");
 		//Read Data from ModelMap
 		List<Uom> list=(List<Uom>) model.get("list");
 		//create Sheet with name Uom

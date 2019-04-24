@@ -3,9 +3,12 @@ package com.app.controller;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.app.model.Uom;
 import com.app.service.IUomService;
+import com.app.util.UomUtil;
+import com.app.validator.UomValidator;
 import com.app.view.UomExcelView;
 
 @Controller
@@ -22,6 +27,15 @@ public class UomController {
 
 	  @Autowired
 	  private IUomService service;
+	  
+	  @Autowired
+	  private ServletContext context;
+	  
+	  @Autowired
+	  private UomUtil util;
+	  
+	  @Autowired
+	  private UomValidator validator;
 	  
 	//1.To show register page
 	@RequestMapping("/register")
@@ -33,12 +47,21 @@ public class UomController {
 	
 	//2.Save the data into Database
 	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public String saveDat(@ModelAttribute Uom uom,ModelMap map)
+	public String saveDat(@ModelAttribute Uom uom,Errors errors,ModelMap map)
 	{
+		 
+	               validator.validate(uom, errors);
+		if(!errors.hasErrors()) {
+			//Call Service Layer
 		Integer id=service.saveUom(uom);
 		String message="Your id Number'"+id+"'saved successfully";
 		map.addAttribute("read",message);
+		//Clear Form Backing Object
 		map.addAttribute("uom",new Uom());
+		}
+		else {
+			map.addAttribute("read","Please Check Errors");
+		}
 		return "UomRegister";
 	}
 	
@@ -93,6 +116,7 @@ public class UomController {
 		}
 		return m;
 	}
+	//8.Pdf Export
 	@RequestMapping("/pdf")
 	public ModelAndView doPdfExcel(@RequestParam(value="id",required=false,defaultValue="0")Integer id) {
 		ModelAndView m=new ModelAndView();
@@ -105,5 +129,24 @@ public class UomController {
 			m.addObject("list",Collections.singletonList(u));
 		}
 		return m;
+	}
+	
+	//9.Converting data to charts
+	@RequestMapping("/charts")
+	public String showCharts() {
+           String path=context.getRealPath("/");
+           List<Object[]> list=service.getUomCountByType();
+           util.generateBar(path, list);
+           util.generatePie(path, list);
+           
+		return "UomReports";
+	}
+		
+		//10.To View One row Data
+	@RequestMapping("/viewone")
+		public String getOneRow(@RequestParam Integer id,ModelMap map) {
+			Uom uom=service.getUomById(id);
+			map.addAttribute("uom",uom);
+		return "UomView";
 	}
 }
