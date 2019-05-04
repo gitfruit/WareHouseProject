@@ -77,6 +77,9 @@ public class ShipmentType {
 	public void setSnote(String snote) {
 		this.snote = snote;
 	}
+	
+	
+	
 	@Override
 	public String toString() {
 		return "ShipmentType [shipmentId=" + shipmentId + ", shipmentMode=" + shipmentMode + ", shipmentCode="

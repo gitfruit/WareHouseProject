@@ -23,7 +23,7 @@ import com.app.model.Document;
 import com.app.model.OrderMethod;
 import com.app.model.ShipmentType;
 import com.app.model.Uom;
-import com.app.model.WHUserType;
+import com.app.model.WhUserType;
 
 
 
@@ -63,7 +63,7 @@ import com.app.model.WHUserType;
 	LocalSessionFactoryBean sf=new LocalSessionFactoryBean();
 	sf.setDataSource(dsObj());
 	sf.setHibernateProperties(props());
-	sf.setAnnotatedClasses(ShipmentType.class,Uom.class,OrderMethod.class,WHUserType.class,Document.class); //Model class names
+	sf.setPackagesToScan("com.app.model");
 	return sf;
 	}
 	private Properties props() {

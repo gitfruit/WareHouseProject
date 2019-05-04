@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<img src="../resources/images/OrderMethodA.jpg" />
+<%@include file="Menu.jsp"%>
+	<div class="container">
+	<img src="../resources/images/OrderMethodA.jpg"  />
 	<img src="../resources/images/OrderMethodB.jpg" />
+	</div>
 </body>
 </html>

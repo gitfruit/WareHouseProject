@@ -3,7 +3,6 @@ package com.app.dao.impl;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -48,12 +47,20 @@ public class ShipmentTypeDaoImpl implements IShipmentTypeDao{
 	@Override
 	public List<Object[]> getShipmentCountByMode() {
 
-		/*String hql=" select shipmentMode,count(shipmentMode) "
+		
+		/*
+		 * Using Hql and Find Method
+		 * 
+		 * String hql=" select shipmentMode,count(shipmentMode) "
 				   +"  from " + ShipmentType.class.getName()
 				   +"  group by shipmentMode ";
 		
 		List<Object[]> list=(List<Object[]>)ht.find(hql);
 		*/
+		
+		
+		//Using DetachedCriteria and FindByCriteria method
+		
 		DetachedCriteria dc=DetachedCriteria.forClass(ShipmentType.class);
 		dc.setProjection(Projections.projectionList().
 				add(Projections.groupProperty("shipmentMode")).

@@ -95,6 +95,8 @@ public class ShipmentTypeController {
 	 public String update(@ModelAttribute ShipmentType shipmentType,ModelMap map){
 		   service.updateShipmentType(shipmentType);
 		   List<ShipmentType> list=service.getAllShipmentTypes();
+		  Integer id= shipmentType.getShipmentId();
+		   map.addAttribute("message","ShipmentType with '"+id+"' updated successfully");
 		   map.addAttribute("list",list);
 		   
 		return "ShipmentTypeData";
@@ -144,7 +146,7 @@ public class ShipmentTypeController {
 	}
 
     //10.To view One Row Data
-	 @RequestMapping("/viewone")
+	 @RequestMapping("/viewOne")
 	 public String getOneRow(@RequestParam Integer id,ModelMap map) {
 		 ShipmentType st=service.getShipmentTypeId(id);
 		 map.addAttribute("st",st);

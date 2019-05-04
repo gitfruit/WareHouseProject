@@ -3,7 +3,6 @@ package com.app.service;
 import java.util.List;
 
 import com.app.model.OrderMethod;
-import com.app.model.WHUserType;
 
 public interface IOrderMethodService {
 

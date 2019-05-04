@@ -7,7 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table border="1">
+<%@include file="Menu.jsp"%>
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-primary text-white">
+<h2>Welcome to WhUserType View Page</h2>
+			</div>
+
+			<div class="card-body">
+				<table class="table table-striped table-bordered">
 <tr>
 <th>Id</th>
 <td>${wh.userId}</td>
@@ -40,6 +48,11 @@
 <th>IdNumber</th>
 <td>${wh.idNumber}</td>
 </tr>
-</table>
-<</body>
+	</table>
+			</div>
+	</div>
+<!--card ends-->	
+</div>
+           <!-- container ends -->
+</body>
 </html>

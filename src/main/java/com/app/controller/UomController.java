@@ -20,6 +20,7 @@ import com.app.service.IUomService;
 import com.app.util.UomUtil;
 import com.app.validator.UomValidator;
 import com.app.view.UomExcelView;
+import com.app.view.UomPdfView;
 
 @Controller
 @RequestMapping("/uom")
@@ -66,7 +67,7 @@ public class UomController {
 	}
 	
 	//3.Show all the data stored in database
-	@RequestMapping("/showall")
+	@RequestMapping("/all")
 	public String showAll(ModelMap map)
 	{
 		List<Uom> list=service.getAllUoms();
@@ -97,8 +98,11 @@ public class UomController {
 	public String update(@ModelAttribute Uom uom,ModelMap map)
 	{ 
 		service.updateUom(uom);
+	   Integer id=uom.getUomId();
         List<Uom> list=service.getAllUoms();
         map.addAttribute("list",list);
+        map.addAttribute("message","Uom with '"+id+"' updated Successfully");
+        
      return "UomData";
 	}
 	
@@ -118,9 +122,9 @@ public class UomController {
 	}
 	//8.Pdf Export
 	@RequestMapping("/pdf")
-	public ModelAndView doPdfExcel(@RequestParam(value="id",required=false,defaultValue="0")Integer id) {
+	public ModelAndView doPdfExport(@RequestParam(value="id",required=false,defaultValue="0")Integer id) {
 		ModelAndView m=new ModelAndView();
-		m.setView(new UomExcelView());
+		m.setView(new UomPdfView());
 		if(id==0) {
 		   m.addObject("list",service.getAllUoms());   	
 		}
@@ -149,4 +153,6 @@ public class UomController {
 			map.addAttribute("uom",uom);
 		return "UomView";
 	}
+	
+	
 }

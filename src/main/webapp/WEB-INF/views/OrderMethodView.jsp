@@ -7,8 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@include file="Menu.jsp"%>
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-primary text-white">
 <h2>Welcome to OrderMethod View Page</h2>
-<table border="1">
+			</div>
+
+			<div class="card-body">
+				<table class="table table-striped table-bordered">
 <tr>
 <th>Id</th>
 <td>${orm.orderId}</td>
@@ -29,6 +36,11 @@
 <th>Note</th>
 <td>${orm.note}</td>
 </tr>
-</table>
+			</table>
+			</div>
+	</div>
+<!--card ends-->	
+</div>
+           <!-- container ends -->
 </body>
 </html>

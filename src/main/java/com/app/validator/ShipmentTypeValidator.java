@@ -40,7 +40,7 @@ public class ShipmentTypeValidator implements Validator{
 			errors.rejectValue("shipmentGrade", null, "Please Choose One Grade");
 		}
 		
-		//Text Input Validation
+		//Text Area Validation
 		if(StringUtils.isEmpty(st.getSnote())||st.getSnote().length()>30) {
 			errors.rejectValue("snote", null, "Please Enter note Maximum 30 Chars" );
 		}

@@ -1,52 +1,135 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<style type="text/css">
-.err{color:red;}
-</style>
 </head>
 <body>
-	<h2>Welcome to ShipmentType Register Page</h2>
 
-	<form:form action="save" method="POST" modelAttribute="shipmentType">
-		<pre>
-ShipmentMode :<form:select path="shipmentMode">
+
+	<%@include file="Menu.jsp"%>
+	<div class="container">
+
+
+		<div class="card">
+			<div class="card-header bg-primary text-white">
+				<h2>Welcome to Shipment Type Register Page</h2>
+			</div>
+
+
+			<!-- Card body having form tag start to end -->
+			<div class="card-body">
+
+
+
+
+				<form:form action="save" method="POST" modelAttribute="shipmentType">
+					
+		
+		<div class="row">
+						<div class="col-3">
+							<label for="shipmentMode" class="control-label">Shipment
+								Mode</label>
+						</div>
+						<div class="col-5">
+<form:select path="shipmentMode">
                <form:option value="">-Select-</form:option>
                <form:option value="AIR">Air</form:option>
                <form:option value="TRAIN">Train</form:option>
                <form:option value="TRUCK">Truck</form:option>
                <form:option value="SHIP">Ship</form:option>
                </form:select>
-               <form:errors path="shipmentMode" cssClass="err"/>
-               
-ShipmentCode :<form:input path="shipmentCode" />
-               <form:errors path="shipmentCode" cssClass="err"/>
-
-EnableShipment  :<form:select path="shipmentEnable">
-                 <form:option value="">-Select-</form:option>
+             </div>
+						<div class="col-4">
+							<form:errors path="shipmentMode" cssClass="text-danger" />
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-3">
+							<label for="shipmentCode" class="control-label"> Shipment
+								Code </label>
+						</div>
+						<div class="col-5">
+        <form:input path="shipmentCode" />
+        </div>
+                 <div class="col-4">
+               <form:errors path="shipmentCode" cssClass="text-danger" />
+</div>  
+</div>
+       
+       <div class="row">
+           <div class="col-3">
+           <label for="shipmentEnable" class="control-label">Shipment Enable</label>
+           </div>
+           <div class="col-5">
+<form:select path="shipmentEnable">
+ <form:option value="">-Select-</form:option>
                  <form:option value="YES">YES</form:option>
                  <form:option value="NO">NO</form:option>
                  </form:select>
-                 <form:errors path="shipmentEnable"	cssClass="err"/>
-                 
-ShipmentGrade   :<form:radiobutton path="shipmentGrade" value="A" />A
+                  </div>
+                  <div class="col-3">
+                 <form:errors path="shipmentEnable" cssClass="text-danger"  />
+              </div>
+                </div> 
+                
+                <div class="row">
+                <div class="col-3">
+                <label class="shipmentGrade">ShipmentGrade</label>
+                </div>
+                <div class="col-5">
+           <form:radiobutton path="shipmentGrade" value="A" />A
                  <form:radiobutton path="shipmentGrade" value="B" />B
                  <form:radiobutton path="shipmentGrade" value="C" />C
-                 <form:errors path="shipmentGrade" cssClass="err"/>                 
-Description     :<form:textarea path="snote" />
-                 <form:errors path="snote" cssClass="err" />
+                 </div>
                  
-                 <input type="submit" value="register" />
-</pre>
-	</form:form>
-
-	${msg}<br>
-	<a href="all">VIEW ALL</a> <br>
-	<a href="charts">VIEWCHARTS</a>
+                 <div class="col-4">
+                 <form:errors path="shipmentGrade" cssClass="text-danger"  />  
+                 </div>
+                 </div>  
+                 
+                 <div class="row">   
+                 <div class="col-3">
+                 <label for="snote" class="control-label">Description</label>
+                 </div>   
+                       
+                       <div class="col-5">
+     <form:textarea path="snote" />
+     </div>
+                <div class="col-4">
+                 <form:errors path="snote" cssClass="text-danger"  />
+                 </div>
+                 </div>
+                 
+                 <div class="row">
+                 <div class="col-4"></div>
+                 </div>
+                 <div class="row">
+                 <div class="col-4"></div>
+                 </div>
+                 <div class="row">
+						<div class="col-3"></div>
+						<div class="col-5">
+                 <input type="submit" value="register" class="btn btn-success"/>
+                 </div>  
+                 </div>
+	
+				</form:form>
+			</div>
+			  <!--  card-body ends -->
+			
+			<c:if test="${msg ne null }">
+				<div class="card-footer bg-info text-white">${msg}</div>
+			</c:if>
+			
+			<!-- card end -->
+		</div>
+		
+		</div>
+		    <!-- container end -->
 </body>
 </html>

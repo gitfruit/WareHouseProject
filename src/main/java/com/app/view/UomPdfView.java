@@ -23,7 +23,7 @@ public class UomPdfView extends AbstractPdfView{
 			HttpServletRequest request, HttpServletResponse response) 
 					throws Exception {
 		//filename
-		response.addHeader("Content-Disposistion","attachment;filename=Uom.pdf");
+		response.addHeader("Content-Disposition","attachment;filename=Uom.pdf");
 		//Read data from model
 		List<Uom> list=(List<Uom>) model.get("list");
 		//create one element

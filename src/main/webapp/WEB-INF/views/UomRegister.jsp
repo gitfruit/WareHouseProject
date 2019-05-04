@@ -2,52 +2,123 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<style type="text/css">
-.err{color:red;}
-</style>
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>Welcome to Uom Register</h2>
-	<form:form action="save" method="post" modelAttribute="uom">
-		<pre>
 
-UomType      :<form:select path="uomType">
+<%@include file="Menu.jsp"%>
+	<div class="container">
+
+
+		<div class="card">
+			<div class="card-header bg-primary text-white">
+	<h2>Welcome to Uom Register</h2>
+	</div>
+	
+		<!-- Card body having form tag start to end -->
+			<div class="card-body">
+			
+	<form:form action="save" method="post" modelAttribute="uom">
+			<div class="row">
+						<div class="col-3">
+							<label for="uomType" class="control-label">UomType</label>
+						</div>
+		
+                 <div class="col-5">
+<form:select path="uomType">
               <form:option value="">-select-</form:option>
               <form:option value="Pack">Pack</form:option>
               <form:option value="NoPack">NOPack</form:option>
               <form:option value="NA">NA</form:option>
               </form:select>
-              <form:errors  path="uomType" cssClass="err"/>
+              </div>
+              <div class="col-4">
+              <form:errors  path="uomType" cssClass="text-danger"/>
+              </div>
+              </div>
    
-UOM CODE     :<form:input path="uomCode" />
-              <form:errors  path="uomCode" cssClass="err"/>
+   <div class="row">
+						<div class="col-3">
+							<label for="uomCode" class="control-label">UomCode</label>
+						</div>
+						<div class="col-5">
+             <form:input path="uomCode" />
+             </div>
+             <div class="col-4">
+              <form:errors  path="uomCode" cssClass="text-danger"/>
+</div>
+</div>
 
-ENABELD      :<form:radiobutton path="enableUom" value="Yes" />YES
+ 
+                         <div class="row">
+						<div class="col-3">
+							<label for="uomCode" class="control-label">UomCode</label>
+						</div>
+						<div class="col-5">
+
+<form:radiobutton path="enableUom" value="Yes" />YES
               <form:radiobutton path="enableUom" value="No" />NO
-              <form:errors  path="enableUom" cssClass="err"/>
+              </div>
+              <div class="col-4">
+             <form:errors  path="enableUom" cssClass="text-danger"/>
+                  </div>
+                  </div>
+                  
+                  <div class="row">
+						<div class="col-3">
+							<label for="metaCode" class="control-label">MetaCode</label>
+						</div>
+						<div class="col-5">
+                  <form:input path="metaCode" />
+                  </div>
+                  <div class="col-4">
+              <form:errors  path="metaCode" cssClass="text-danger"/>
+</div>
+</div>
 
-METACODE      :<form:input path="metaCode" />
-              <form:errors  path="metaCode" cssClass="err"/>
-
-ADJUST SIZE   :<form:radiobutton path="adjSize" value="L" />L
+<div class="row">
+						<div class="col-3">
+							<label for="adjSize" class="control-label">Adjust Size</label>
+						</div>
+                       <div class="col-5">
+<form:radiobutton path="adjSize" value="L" />L
                <form:radiobutton path="adjSize" value="M" />M
                <form:radiobutton path="adjSize" value="R" />R
-              <form:errors  path="adjSize" cssClass="err"/>
-               
-                
-NOTE          :<form:textarea path="note" />
-              <form:errors  path="note" cssClass="err"/>
-
-      <input type="submit" value="Register" />
-    </pre>
+               </div>
+               <div class="col-4">
+              <form:errors  path="adjSize" cssClass="text-danger"/>
+               </div>
+               </div>
+                <div class="row">
+						<div class="col-3">
+							<label for="note" class="control-label">Description</label>
+						</div>
+                       <div class="col-5">
+<form:textarea path="note" />
+</div>   
+          <div class="col-4">
+              <form:errors  path="note" cssClass="text-danger"/>
+</div>
+</div>
+<div class="row">
+						<div class="col-3"></div>
+						<div class="col-5">
+      <input type="submit" value="Register" class="btn btn-success"/>
+    </div>
+    </div>
 	</form:form>
-	${read} <br>
-	<a href="charts">VIEWCHARTS</a> <br> 
-	<a href="showall">VIEW ALL</a>
+		</div>
+			  <!--  card-body ends -->
+			
+			<c:if test="${read ne null }">
+			<div class="card-footer bg-info text-white">${read}</div>
+			</c:if>
+	
+	</div>
+	</div>
 </body>
 </html>

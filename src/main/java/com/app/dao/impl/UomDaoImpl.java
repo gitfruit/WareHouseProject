@@ -7,7 +7,6 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.app.dao.IUomDao;
-import com.app.model.ShipmentType;
 import com.app.model.Uom;
 
 @Repository
